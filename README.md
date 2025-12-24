@@ -149,12 +149,6 @@ Found an issue? Please:
 3. Describe steps to reproduce the bug
 4. Report your Vintage Story and mod versions
 
-## 🌟 Support
-
-- **Discord**: [Vintage Story Server](https://discord.gg/vintagestory)
-- **Forum**: [Official mod thread](https://www.vintagestory.at/forums)
-- **GitHub**: [Issues and discussions](https://github.com/HarukaYamamoto0/zero-loss-coke/issues)
-
 **Compatible with multiplayer and singleplayer servers** • **Automatic configuration updates** • **Seamless integration
 with base game**
 
