@@ -3,12 +3,10 @@
   "type": "Code",
   "modid": "zerolosscoke",
   "name": "Zero Loss Coke",
-  "authors": [
-    "harukadev"
-  ],
-  "description": "Zero Loss Coke ensures that no coke is lost when a coke furnace finishes burning.",
+  "authors": ["harukadev"],
+  "description": "Removes the random 50% loss when converting coal to coke, ensuring you always get maximum yield. Server-side only.",
   "version": "1.0.0",
-  "side": "Universal",
+  "side": "Server",
   "dependencies": {
     "game": "1.21.0"
   },
