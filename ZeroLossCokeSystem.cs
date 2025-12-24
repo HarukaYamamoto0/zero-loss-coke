@@ -7,28 +7,39 @@ using Vintagestory.GameContent;
 
 namespace ZeroLossCoke;
 
+// ref: https://github.com/anegostudios/vssurvivalmod/blob/84c80e85f36e31d3b6454021da0fbbba4cba71a3/BlockEntity/BECoalPile.cs
+
 [HarmonyPatch]
 // ReSharper disable once UnusedType.Global
 public class ZeroLossCokeSystem : ModSystem
 {
     private Harmony? _harmony;
     private static ZeroLossCokeConfig _config = new();
-    private const string ModLogPrefix = "[ZeroLossCoke]";
+    private static Logger _logger = null!;
 
     public override bool ShouldLoad(EnumAppSide side) => side.IsServer();
 
     public override void StartServerSide(ICoreServerAPI api)
     {
+        base.StartServerSide(api);
+        _logger = new Logger(api, Mod.Info.ModID);
+
         // Load and save configuration
-        var loaded = api.LoadModConfig<ZeroLossCokeConfig>("zerolosscoke.json");
-        _config = loaded ?? new ZeroLossCokeConfig();
+        _config = api.LoadModConfig<ZeroLossCokeConfig>("zerolosscoke.json") ?? new ZeroLossCokeConfig();
         api.StoreModConfig(_config, "zerolosscoke.json");
+
+        _config.YieldMultiplier = Math.Max(0.1f, _config.YieldMultiplier); // minimum 10% multiplier
+        if (_config is { MinYield: > 0, MaxYield: > 0 } && _config.MinYield > _config.MaxYield)
+        {
+            (_config.MinYield, _config.MaxYield) = (_config.MaxYield, _config.MinYield);
+            _logger.Warn("MinYield > MaxYield corrected in configuration");
+        }
 
         // Apply Harmony patches
         _harmony = new Harmony(Mod.Info.ModID);
         _harmony.PatchAll(typeof(ZeroLossCokeSystem).Assembly);
 
-        api.Logger.Event($"{ModLogPrefix} Mod loaded. Yield Multiplier: {_config.YieldMultiplier:F2}");
+        _logger.Event($"Mod loaded. Yield Multiplier: {_config.YieldMultiplier:F2}");
     }
 
     public override void Dispose()
@@ -76,8 +87,8 @@ public class ZeroLossCokeSystem : ModSystem
 
         if (_config.DebugLogging)
         {
-            __instance.Api.Logger.Debug(
-                $"{ModLogPrefix} Adjusted at {__instance.Pos}: {originalAmount} -> {newAmount}"
+            _logger.Debug(
+                $"Adjusted at {__instance.Pos}: {originalAmount} -> {newAmount}"
             );
         }
     }

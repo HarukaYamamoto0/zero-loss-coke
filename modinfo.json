@@ -5,7 +5,7 @@
   "name": "Zero Loss Coke",
   "authors": ["harukadev"],
   "description": "Removes the random 50% loss when converting coal to coke, ensuring you always get maximum yield. Server-side only.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "side": "Server",
   "dependencies": {
     "game": "1.21.0"
