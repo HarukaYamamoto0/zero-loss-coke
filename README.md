@@ -40,7 +40,7 @@ The mod automatically creates a `zerolosscoke.json` file on first run:
 | **YieldMultiplier** | `float` | `2.0`   | Production multiplier (2.0 = double, 1.0 = normal) |
 | **MinYield**        | `int`   | `0`     | Minimum guaranteed amount (0 = disabled)           |
 | **MaxYield**        | `int`   | `0`     | Maximum allowed amount (0 = unlimited)             |
-| **DebugLogging**    | `bool`  | `false`  | Enables detailed console logs                      |
+| **DebugLogging**    | `bool`  | `false` | Enables detailed console logs                      |
 
 ### Configuration Examples
 
