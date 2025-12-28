@@ -10,7 +10,6 @@ obj/
 out/
 publish/
 *.pdb
-*.dll
 *.deps.json
 *.runtimeconfig.json
 *.xml
@@ -48,7 +47,6 @@ ZZCakeBuild/bin/
 #################################
 # Mod release artifacts          #
 #################################
-Releases/**/*.dll
 Releases/**/*.pdb
 Releases/**/*.deps.json
 Releases/**/*.runtimeconfig.json
@@ -76,9 +74,9 @@ desktop.ini
 ##############################
 # Keep what matters           #
 ##############################
-!ZeroLossCharcoal/assets/
-!ZeroLossCharcoal/assets/**/lang/*.json
-!ZeroLossCharcoal/modinfo.json
+!ZeroLossCoke/assets/
+!ZeroLossCoke/assets/**/lang/*.json
+!ZeroLossCoke/modinfo.json
 
 .idea
 !.idea/dictionaries/
