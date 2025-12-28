@@ -1,0 +1,65 @@
+name: Build & Release Vintage Story Mod
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - "v*"
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - tfm: net7.0
+            dotnet: 7.0.x
+          - tfm: net8.0
+            dotnet: 8.0.x
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build (${{ matrix.tfm }})
+        run: |
+          dotnet build \
+            -c Release \
+            -f ${{ matrix.tfm }} \
+            --no-restore
+
+      - name: Upload build artifacts (${{ matrix.tfm }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.tfm }}
+          path: Releases/*.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release-assets/**/**/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
