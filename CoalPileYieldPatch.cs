@@ -34,9 +34,23 @@ public static class CoalPileYieldPatch
             yield return oldTick;
     }
 
-    [HarmonyPostfix]
-    private static void Postfix(BlockEntityCoalPile __instance)
+    [HarmonyPrefix]
+    private static void Prefix(BlockEntityCoalPile __instance, out bool __state)
     {
-        CoalPileYieldLogic.Apply(__instance);
+        // Check if the pile already contains coke BEFORE the tick
+        // This prevents the doubling of existing coke piles used as fuel (e.g., in a steel furnace)
+        var stack = __instance.inventory[0]?.Itemstack;
+        __state = stack?.Item?.Code?.Path != "coke";
+    }
+
+    [HarmonyPostfix]
+    private static void Postfix(BlockEntityCoalPile __instance, bool __state)
+    {
+        // Only apply logic if it was NOT coke before the tick (indicates it was still coal)
+        // AND the logic itself will check if it IS coke now (indicates conversion happened)
+        if (__state)
+        {
+            CoalPileYieldLogic.Apply(__instance);
+        }
     }
 }

@@ -48,7 +48,7 @@ On first run, the mod generates a `zerolosscoke.json` file:
 ### Configuration Options
 
 | Setting             | Type    | Default | Description                                                   |
-| ------------------- | ------- | ------- | ------------------------------------------------------------- |
+|---------------------|---------|---------|---------------------------------------------------------------|
 | **YieldMultiplier** | `float` | `2.0`   | Final production multiplier (2.0 = full yield, 1.0 = vanilla) |
 | **MinYield**        | `int`   | `0`     | Guaranteed minimum output (0 disables the limit)              |
 | **MaxYield**        | `int`   | `0`     | Maximum allowed output (0 = unlimited)                        |
@@ -135,7 +135,7 @@ Build artifacts are generated per target framework.
 ## 🔍 Troubleshooting
 
 | Issue                  | Solution                                             |
-| ---------------------- | ---------------------------------------------------- |
+|------------------------|------------------------------------------------------|
 | Mod does not load      | Ensure the correct Vintage Story version is used     |
 | Config changes ignored | Restart the server after editing `zerolosscoke.json` |
 | No logs visible        | Enable `DebugLogging`                                |
