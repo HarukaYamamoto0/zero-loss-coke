@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>1.1.0</Version>
+        <Version>1.1.1</Version>
         <ModVersion>$(Version)</ModVersion>
         <ZipName>zero_loss_coke</ZipName>
     </PropertyGroup>
